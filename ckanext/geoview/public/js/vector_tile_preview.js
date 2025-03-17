@@ -22,7 +22,6 @@ ckan.module('vectortilepreview', function (jQuery, _) {
       
       var vectorLayerId = this.options.resource_id
       var vectorUrl = this.options.pg_tilesrv_base_url + "public." + vectorLayerId + "/{z}/{x}/{y}.pbf";
-      debugger
       var vectorTileStyling = {};
       vectorTileStyling[vectorLayerId] = {
         "fill": true,
@@ -39,7 +38,29 @@ ckan.module('vectortilepreview', function (jQuery, _) {
 
       self.map = ckan.commonLeafletMap('map', {type:'OpenStreetMap.Mapnik'}, vectorTileOptions);
       self.map.setView([0,0],2)
-      var vectorLayer = L.vectorGrid.protobuf(vectorUrl, vectorTileOptions).addTo(self.map);
+      var markers = L.markerClusterGroup();
+      var vectorLayer = L.vectorGrid.protobuf(vectorUrl, {
+        // rendererFactory: L.canvas.tile,
+        rendererFactory: (tileCoord, tileSize, options) =>{
+          console.log('hmm',tileCoord, tileSize, options)
+          return L.svg.tile(tileCoord, tileSize, options);
+        },
+        vectorTileLayerStyles: vectorTileStyling,
+        attributionControl: false,
+        interactive: true,
+      });
+      // L.DomEvent.fakeStop = () => 0; 
+      vectorLayer.on('load', function (a,b,c,d,e) {
+        // debugger
+        // var latlng = e.latlng;
+        // var marker = L.marker(latlng);
+        // markers.addLayer(marker);
+        console.log('loaded')
+      });
+
+      vectorLayer.addTo(self.map)
+      markers.addTo(self.map)
+     
       // hack to make leaflet use a particular location to look for images
       // L.Icon.Default.imagePath = this.options.site_url + 'js/vendor/leaflet/images/';
      

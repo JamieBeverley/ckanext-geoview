@@ -41,7 +41,6 @@
 
       if (mapConfig.type == 'mapbox') {
           // MapBox base map
-          debugger
           if (!mapConfig['mapbox.map_id'] || !mapConfig['mapbox.access_token']) {
             throw '[CKAN Map Widgets] You need to provide a map ID ([account].[handle]) and an access token when using a MapBox layer. ' +
                   'See http://www.mapbox.com/developers/api-overview/ for details';
@@ -77,7 +76,7 @@
 
 
       } else if (mapConfig.type) {
-        debugger
+        
         baseLayer = L.tileLayer.provider(mapConfig.type, mapConfig)
 
       } else {

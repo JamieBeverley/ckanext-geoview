@@ -9,6 +9,8 @@ declare -a libs=(
   "leaflet (js);/node_modules/leaflet/dist/leaflet.js;/leaflet/"
   "leaflet (css);/node_modules/leaflet/dist/leaflet.css;/leaflet/"
   "leaflet (images);/node_modules/leaflet/dist/images;/leaflet/"
+  "leaflet.markercluster (js);/node_modules/leaflet.markercluster/dist/leaflet.markercluster-src.js;/leaflet.markercluster/"
+  "leaflet.markercluster (css);/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css;/leaflet.markercluster/"
   "leaflet_providers;/node_modules/leaflet-providers/leaflet-providers.js;/leaflet-providers/"
   "leaflet_spin;/node_modules/leaflet-spin/leaflet.spin.js;/leaflet-spin/"
   "leaflet.vectorgrid;/node_modules/leaflet.vectorgrid/dist/Leaflet.VectorGrid.bundled.js;/leaflet.vectorgrid/"

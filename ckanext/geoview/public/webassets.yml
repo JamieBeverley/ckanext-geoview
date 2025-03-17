@@ -95,6 +95,7 @@ vector_tile_js:
     - js/vendor/leaflet/leaflet.js
     - js/vendor/leaflet-providers/leaflet-providers.js
     - js/vendor/leaflet.vectorgrid/Leaflet.VectorGrid.bundled.js
+    - js/vendor/leaflet.markercluster/leaflet.markercluster-src.js
     # - js/vendor/proj4/proj4.js
     # - js/vendor/proj4leaflet/proj4leaflet.js
     - js/common_map.js
@@ -104,3 +105,4 @@ vector_tile_css:
   contents:
     - js/vendor/leaflet/leaflet.css
     - css/vector_tile_preview.css
+    - js/vendor/leaflet.markercluster/MarkerCluster.Default.css
