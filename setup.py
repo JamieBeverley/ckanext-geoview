@@ -27,5 +27,6 @@ setup(
     geojson_view=ckanext.geoview.plugin:GeoJSONView
     wmts_view=ckanext.geoview.plugin:WMTSView
     shp_view=ckanext.geoview.plugin:SHPView
+    vector_tile_view=ckanext.geoview.plugin:VectorTileView
     ''',
 )

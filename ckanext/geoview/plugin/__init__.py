@@ -316,3 +316,56 @@ class SHPView(GeoViewBase):
             "get_common_map_config_shp": utils.get_common_map_config,
             "get_shapefile_viewer_config": utils.get_shapefile_viewer_config,
         }
+
+class VectorTileView(GeoViewBase):
+    # TODO only keep if we end up using helpers
+    p.implements(p.ITemplateHelpers, inherit=True)
+
+    def update_config(self, config):
+        super(VectorTileView, self).update_config(config)
+        # TODO
+        # probably want sub configs for this plugin? e.g. base map view (leaflet vs..?)
+
+    # IResourceView
+    def info(self):
+        return {
+            "name": "vector_tile_view",
+            "title": "Vector Tiles",
+            "default_title": toolkit._("Map viewer"),
+            "default_description": None,
+            "icon": "map-marker",
+            "always_available": False,
+            "iframed": True,
+            "preview_enabled": True,
+            "full_page_edit": False,
+            # "schema": None,
+        }
+
+    def can_view(self, data_dict):
+        resource = data_dict["resource"]
+        same_domain = on_same_domain(data_dict)
+        
+        # TODO: format=GeoJSON doesn't seem quite right, this isn't really a geojson?
+        is_geospatial_datastore_resource = (
+            resource.get('datastore_active', False)
+            and resource.get('format') == 'GeoJSON'
+        )
+        if is_geospatial_datastore_resource:
+            return same_domain or self.proxy_enabled
+        return False
+
+    # TODO if needed
+    def setup_template_variables(self, context, data_dict):
+        return data_dict
+
+    def view_template(self, context, data_dict):
+        return "dataviewer/vector_tiles.html"
+
+    # ITemplateHelpers
+    # TODO if needed
+    # def get_helpers(self):
+        # return {}
+    def get_helpers(self):
+        return {
+            "get_common_map_config_geojson": utils.get_common_map_config,
+        }
