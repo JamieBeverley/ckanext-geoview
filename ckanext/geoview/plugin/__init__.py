@@ -354,17 +354,15 @@ class VectorTileView(GeoViewBase):
             return same_domain or self.proxy_enabled
         return False
 
-    # TODO if needed
     def setup_template_variables(self, context, data_dict):
+        # TODO from config
+        data_dict["pg_tilserv_base_url"] = 'http://localhost:7800/'
         return data_dict
 
     def view_template(self, context, data_dict):
         return "dataviewer/vector_tiles.html"
 
     # ITemplateHelpers
-    # TODO if needed
-    # def get_helpers(self):
-        # return {}
     def get_helpers(self):
         return {
             "get_common_map_config_geojson": utils.get_common_map_config,

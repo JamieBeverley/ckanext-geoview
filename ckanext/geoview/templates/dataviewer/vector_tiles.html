@@ -9,6 +9,8 @@
     <div data-module="vectortilepreview" id="data-preview"
          data-module-site_url="{{ h.dump_json(h.url_for('/', locale='default', qualified=true)) }}"
          data-module-map_config="{{ h.dump_json(map_config) }}"
+         data-module-pg_tilesrv_base_url="{{ pg_tilserv_base_url }}"
+         data-module-resource_id="{{ resource['id'] }}"
          >
         <h4 class="loading-dialog">
           <div class="loading-spinner"></div>

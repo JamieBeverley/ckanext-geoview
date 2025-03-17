@@ -16,16 +16,34 @@ ckan.module('vectortilepreview', function (jQuery, _) {
     },
     initialize: function () {
       var self = this;
-
       self.el.empty();
 
       self.el.append($("<div></div>").attr("id","map"));
-      self.map = ckan.commonLeafletMap('map', this.options.map_config, {attributionControl: false});
+      
+      var vectorLayerId = this.options.resource_id
+      var vectorUrl = this.options.pg_tilesrv_base_url + "public." + vectorLayerId + "/{z}/{x}/{y}.pbf";
+      debugger
+      var vectorTileStyling = {};
+      vectorTileStyling[vectorLayerId] = {
+        "fill": true,
+        "fillOpacity": 0.1,
+        "opacity": 0.7,
+        "weight": 2
+      };
+      var vectorTileOptions = {
+        rendererFactory: L.canvas.tile,
+        vectorTileLayerStyles: vectorTileStyling,
+        attributionControl: false,
+      };
+      // self.map = ckan.commonLeafletMap('map', this.options.map_config, vectorTileOptions);
 
+      self.map = ckan.commonLeafletMap('map', {type:'OpenStreetMap.Mapnik'}, vectorTileOptions);
+      self.map.setView([0,0],2)
+      var vectorLayer = L.vectorGrid.protobuf(vectorUrl, vectorTileOptions).addTo(self.map);
       // hack to make leaflet use a particular location to look for images
-      L.Icon.Default.imagePath = this.options.site_url + 'js/vendor/leaflet/images/';
-      console.log(self)
-      console.log("************")
+      // L.Icon.Default.imagePath = this.options.site_url + 'js/vendor/leaflet/images/';
+     
+
     //   jQuery.getJSON(preload_resource['url']).done(
     //     function(data){
     //       self.showPreview(data);
